@@ -48,6 +48,7 @@ namespace Game1
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             spark = Content.Load<Texture2D>("spark.png");
+            splittersystem = new SplitterSystem(spark);
             camera.setFieldSize(graphics.GraphicsDevice.Viewport);
         }
 
@@ -67,11 +68,19 @@ namespace Game1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
-
+            }
             // TODO: Add your update logic here
-
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                splittersystem = new SplitterSystem(spark);
+            }
+            foreach (SplitterParticle particle in splittersystem.particles)
+            {
+                particle.updategame((float)gameTime.ElapsedGameTime.TotalSeconds);
+            }
             base.Update(gameTime);
         }
 
@@ -85,6 +94,14 @@ namespace Game1
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+
+            foreach(SplitterParticle particle in splittersystem.particles)
+            {
+                float scale = camera.Scale(spark);
+
+                spriteBatch.Draw(spark, camera.Converttovisualcoords(particle.pos,spark), null, Color.White, 0, particle.randomdirection, scale, SpriteEffects.None, 0);
+            }
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
