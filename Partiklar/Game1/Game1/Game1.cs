@@ -19,9 +19,9 @@ namespace Game1
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 800; //Windowheight
+            graphics.PreferredBackBufferWidth = 800; //Windowwidth
+            graphics.IsFullScreen = false; //Fullscreen disabled
             graphics.ApplyChanges();
         }
 
@@ -48,7 +48,7 @@ namespace Game1
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             spark = Content.Load<Texture2D>("spark.png");
-            splittersystem = new SplitterSystem(spark);
+            splittersystem = new SplitterSystem(spark); //Creates a new instance of splittersystem
             camera.setFieldSize(graphics.GraphicsDevice.Viewport);
         }
 
@@ -75,11 +75,12 @@ namespace Game1
             // TODO: Add your update logic here
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                splittersystem = new SplitterSystem(spark);
+                splittersystem = new SplitterSystem(spark); //Creates a new instance so a new explosion is created
             }
-            foreach (SplitterParticle particle in splittersystem.particles)
+            
+            foreach (SplitterParticle particle in splittersystem.particles) //Moves the particles
             {
-                particle.updategame((float)gameTime.ElapsedGameTime.TotalSeconds);
+                particle.Updateposition((float)gameTime.ElapsedGameTime.TotalSeconds);
             }
             base.Update(gameTime);
         }
@@ -95,7 +96,7 @@ namespace Game1
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            foreach(SplitterParticle particle in splittersystem.particles)
+            foreach(SplitterParticle particle in splittersystem.particles) //Generates out the particles scaled accordingly
             {
                 float scale = camera.Scale(spark);
 

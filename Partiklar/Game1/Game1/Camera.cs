@@ -14,7 +14,7 @@ namespace Game1
         int height;
         private float particlesize = 0.02f;
         float scale = 1;
-        public void setFieldSize(Viewport board)
+        public void setFieldSize(Viewport board) //If width is bigger than height use it for scaling, otherwhise the other way around
         {
             width = board.Width;
             height = board.Height;
@@ -29,14 +29,14 @@ namespace Game1
             }
         }
 
-        public Vector2 Converttovisualcoords(Vector2 coords,Texture2D spark)
+        public Vector2 Converttovisualcoords(Vector2 coords,Texture2D spark) //gamecoords to visualcoords
         {
             float visualX = coords.X * fieldsize - (spark.Width / 2) * scale;
             float visualY = coords.Y * fieldsize - (spark.Height / 2) * scale;
             return new Vector2(visualX, visualY);
         }
 
-        public float Scale(Texture2D spark)
+        public float Scale(Texture2D spark) //scales the particle
         {
             return scale = fieldsize * particlesize / spark.Width;
             

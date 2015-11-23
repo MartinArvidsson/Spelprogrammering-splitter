@@ -17,7 +17,7 @@ namespace Game1
 
         public SplitterSystem(Texture2D spark)
         {
-            particles = new SplitterParticle[numberofparticles];
+            particles = new SplitterParticle[numberofparticles]; //For each in the array creates a new particle to bounce around
             for (int i = 0; i < particles.Length; i++)
             {
                 particles[i] = new SplitterParticle(spark, rand);

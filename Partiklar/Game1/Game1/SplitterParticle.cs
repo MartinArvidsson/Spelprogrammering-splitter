@@ -15,7 +15,7 @@ namespace Game1
         public Vector2 velocity;
         public Vector2 acceleration = new Vector2(0.0f, 0.75f);
 
-        public SplitterParticle(Texture2D spark, Random random)
+        public SplitterParticle(Texture2D spark, Random random) //Creates the random direction and speed
         {
             randomdirection = new Vector2((float)random.NextDouble() - 0.5f, (float)random.NextDouble() - 0.5f);
             //normalize to get it spherical vector with length 1.0
@@ -25,7 +25,7 @@ namespace Game1
             velocity = randomdirection;
         }
 
-        public void updategame(float elapsedtime)
+        public void Updateposition(float elapsedtime)
         {
             velocity = elapsedtime * acceleration + velocity;
             pos = elapsedtime * velocity + pos;
